@@ -1,3 +1,16 @@
+<?php
+session_start();
+if(isset($_SESSION['user'])){
+header("location:index.php");
+exit;
+}
+?>
+<script>
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState({}, document.title, "login.php");
+  }
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,6 +36,18 @@
     </div>
     <div class="card-body">
       <p class="login-box-msg">Sign in to start your session</p>
+ <!-- #region -->
+
+
+<?php
+if (isset($_GET['error'])) {
+    echo "<p style='color: red;'>" . htmlspecialchars($_GET['error']) . "</p>";
+}
+if (isset($_GET['success'])) {
+    echo "<p style='color: green;'>" . htmlspecialchars($_GET['success']) . "</p>";
+}
+?>
+
 
       <form action="login_process.php" method="post">
         <div class="input-group mb-3">
@@ -58,6 +83,16 @@
         </div>
       </form>
 
+      <?php
+      if(isset( $_GET['error'])){
+      ?>
+      <div class="alert alert-danger mt-2">
+        <?= $_GET['error'] ?>
+      </div>
+      <?php
+        }
+      ?>
+
       <div class="social-auth-links text-center mt-2 mb-3">
         <a href="#" class="btn btn-block btn-primary">
           <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
@@ -72,7 +107,7 @@
         <a href="forgot-password.html">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="register.php" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.card-body -->

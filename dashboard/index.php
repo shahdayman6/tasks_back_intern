@@ -1,7 +1,46 @@
 <?php
+session_start();
+if(!isset($_SESSION['user'])){
+header("location:login.php");
+exit;
+}
+
 include"layout/header.php";
 include"layout/sidebar.php";
 ?>
+
+<?php if (isset($_SESSION['user']['username'])): ?>
+    <div id="welcome-message" style="
+        background-color: #d4edda;
+        color: #155724;
+        padding: 15px;
+        margin: 10px auto;
+        width: fit-content;
+        border-radius: 8px;
+        font-weight: bold;
+        font-family: Arial;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        text-align: center;
+    ">
+      HELLO  <?php echo htmlspecialchars($_SESSION['user']['username']); ?> 👋
+    </div>
+<?php endif; ?>
+<script>
+    setTimeout(function() {
+        var msg = document.getElementById("welcome-message");
+        if (msg) {
+            msg.style.display = "none";
+        }
+    }, 4000); // 4000 = 4 ثواني
+</script>
+
+
+
+<script>
+  if (window.history && window.history.replaceState) {
+    window.history.replaceState({}, document.title, "index.php");
+  }
+</script>
 
  <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
@@ -15,12 +54,12 @@ include"layout/sidebar.php";
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard v2</h1>
+            <h1 class="m-0">Dashboard </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v2</li>
+              <li class="breadcrumb-item active">Dashboard </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

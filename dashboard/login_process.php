@@ -1,4 +1,5 @@
 <?php
+session_start();
 include "config/db.php";
 $user_name =$_POST["username"];
 $pass =$_POST["pass"];
@@ -11,12 +12,15 @@ $res=$stnt->get_result();
 $user=$res->fetch_assoc();
 
 if($user && $pass==$user["password"] ){
- 
+  $_SESSION['user']=[
+   'id'=>$user['id'],
+   'username'=>$user['username'],
+   'name'=>$user['name']
+  ];
   header("location:index.php");
 }
 else{
-    header("location:login.php?error = user not found");
+    header("location:login.php?error= user not found");
 }
-
 
 ?>
